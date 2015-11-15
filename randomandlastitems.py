@@ -39,13 +39,7 @@ def _getPlaylistType ():
     global REVERSE
     global SORTBY
     global TYPE
-    
-    path = xbmc.translatePath(PLAYLIST)
-    
-    if sys.platform.startswith('win') and re.search(r'.*Users\\.*\\AppData\\Roaming.*', path, re.IGNORECASE):
-        path = os.getenv('APPDATA') + path.split("Roaming")[1]    
-        
-    _doc = parse(path)
+    _doc = parse(xbmc.translatePath(PLAYLIST).decode('utf-8'))
     _type = _doc.getElementsByTagName('smartplaylist')[0].attributes.item(0).value
     if _type == 'movies':
        TYPE = 'Movie'
